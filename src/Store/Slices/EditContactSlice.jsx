@@ -2,7 +2,11 @@ import {createSlice} from '@reduxjs/toolkit'
 
 export const EditContactSlice = createSlice({
     name: 'Edit Contacts',
-    initialState: [],
+    initialState: [{
+        id : '',
+        email : '',
+        name : '',
+    }],
     reducers : {
         editContact (state , action) {
             state.push(action.payload)

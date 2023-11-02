@@ -20,19 +20,17 @@ export default Home
 
 const AddNewContactMudal = (props) => {
     const {mudal , setMudal , id} = props
-    const [email , setEmail] =useState('');
-    const [name , setName] = useState('')
+    
     const dispatch = useDispatch()
     const contacts = useSelector(state => state.contacts)
-    const editContact = useSelector(state => state.editContact)
+    const obj = contacts.find((contact) => contact.id == id)
+    const [email , setEmail] =useState(obj.email);
+    const [name , setName] = useState(obj.name)
+        
     console.log(editContact)
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(editContact) {
-            console.log(editContact[0].name)
-            setEmail(editContact[0].email)
-            setName(editContact[0].name)
-        }
+    
         dispatch(addContact({
             id : contacts.length + 1,
             name,
@@ -66,7 +64,6 @@ const AddNewContactMudal = (props) => {
                     </form>
                 </div>
             </div>
-        
         </div>
         </div>
 
