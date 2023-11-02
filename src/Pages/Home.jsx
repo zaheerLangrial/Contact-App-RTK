@@ -6,7 +6,6 @@ import {addContact , editContact} from '../Store/Slices/ContactSlice'
 
 function Home() {
     const [id , setId] = useState('')
-    console.log(id)
     const [mudal , setMudal] = useState(false)
   return (
     <>
@@ -25,9 +24,15 @@ const AddNewContactMudal = (props) => {
     const [name , setName] = useState('')
     const dispatch = useDispatch()
     const contacts = useSelector(state => state.contacts)
-
+    const editContact = useSelector(state => state.editContact)
+    console.log(editContact)
     const handleSubmit = (e) => {
         e.preventDefault()
+        if(editContact) {
+            console.log(editContact[0].name)
+            setEmail(editContact[0].email)
+            setName(editContact[0].name)
+        }
         dispatch(addContact({
             id : contacts.length + 1,
             name,
@@ -35,6 +40,7 @@ const AddNewContactMudal = (props) => {
         }))
         setMudal(false)
     }
+     
     return (
         <div id="authentication-modal" tabindex="-1" aria-hidden="true" class={`fixed top-20 left-0 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full ${mudal ? '' : 'hidden'}`}>
         <div class="relative w-full max-w-md max-h-full">

@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import {useDispatch, useSelector } from "react-redux";
 import { deleteContact } from "../Store/Slices/ContactSlice";
+import { editContact } from "../Store/Slices/EditContactSlice";
 
 function ContactList(props) {
     const {setMudal , setId} = props
     const dispatch = useDispatch()
     const contacts = useSelector(state => state.contacts)
 
+
     const handleEdit = (id) => {
-      setId(id)
+      const obj = contacts.find((contact) => contact.id == id)
+      console.log(obj)
+      dispatch(editContact(obj))
       setMudal(true)
     }
 
@@ -53,7 +57,7 @@ function ContactList(props) {
                 fill="black"
               />
             </svg>
-            <span className=" sr-only">Edit</span>
+            <span className="sr-only">Edit</span>
             </button>
             <button onClick={() => handleDelete(contact.id)}>
             <svg
